@@ -3,6 +3,7 @@ package com.example.android.android_me.ui;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,15 @@ import android.widget.ImageView;
 import com.example.android.android_me.R;
 import com.example.android.android_me.data.AndroidImageAssets;
 
+import java.util.List;
+
 public class BodyPartFragment extends Fragment {
+
+    // Tags
+    private static final String TAG = "BodyPartFragment";
+
+    private List<Integer> mImageIds;
+    private int mListIndex;
 
     //Constructor
     public BodyPartFragment() {
@@ -31,9 +40,21 @@ public class BodyPartFragment extends Fragment {
         ImageView imageView = (ImageView) rootView.findViewById( R.id.body_part_image_view );
 
         //Set the image resource to display
-        imageView.setImageResource( AndroidImageAssets.getHeads().get(0) );
+        if( this.mImageIds != null ){
+            imageView.setImageResource( this.mImageIds.get( this.mListIndex ) );
+        }else{
+            Log.v(BodyPartFragment.TAG, "Este fragmento tiene un null en la lista de imagenes");
+        }
 
         //Return root view
         return rootView;
+    }
+
+    public void setmImageIds(List<Integer> mImageIds) {
+        this.mImageIds = mImageIds;
+    }
+
+    public void setmListIndex(int mListIndex) {
+        this.mListIndex = mListIndex;
     }
 }
