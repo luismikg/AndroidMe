@@ -46,8 +46,26 @@ public class BodyPartFragment extends Fragment {
             Log.v(BodyPartFragment.TAG, "Este fragmento tiene un null en la lista de imagenes");
         }
 
+        this.setClickListener( imageView );
+
         //Return root view
         return rootView;
+    }
+
+    private void setClickListener(final ImageView imageView){
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BodyPartFragment.this.mListIndex += 1;
+
+                if( BodyPartFragment.this.mListIndex == BodyPartFragment.this.mImageIds.size() ){
+                    BodyPartFragment.this.mListIndex = 0;
+                }
+
+                int idx = BodyPartFragment.this.mListIndex;
+                imageView.setImageResource( BodyPartFragment.this.mImageIds.get( idx ) );
+            }
+        });
     }
 
     public void setmImageIds(List<Integer> mImageIds) {
